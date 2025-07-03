@@ -79,7 +79,7 @@ const generateId = () => Math.random().toString(36).substr(2, 9); // Manter para
 
 // Mock data (será substituída por dados do backend)
 // Removidos ou alterados para serem carregados do backend
-const mockClients: Client[] = []; 
+const mockClients: Client[] = [];
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -171,7 +171,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const login = async (password: string): Promise<boolean> => {
     try {
       // Ajuste para a rota de login real no backend
-      const response = await axios.post(`${API_URL}/auth/login`, { password });
+      // ALTERAÇÃO FEITA AQUI: /auth/login foi mudado para /api/login
+      const response = await axios.post(`${API_URL}/api/login`, { password }); 
       
       if (response.data && response.data.token) {
         localStorage.setItem('zapbot_token', response.data.token); // Salva o token
