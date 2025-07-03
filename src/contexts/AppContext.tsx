@@ -9,7 +9,7 @@ import io, { Socket } from 'socket.io-client'; // Importação do Socket.IO Clie
 // Esta URL virá do seu arquivo .env
 // Certifique-se de que no seu .env você tem: VITE_API_URL=https://api.meuzap.shop:3000
 // ==============================================
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'; // Adiciona um fallback para desenvolvimento local
 
 interface AppContextType {
   // Authentication
@@ -80,7 +80,6 @@ const generateId = () => Math.random().toString(36).substr(2, 9); // Manter para
 // Mock data (será substituída por dados do backend)
 // Removidos ou alterados para serem carregados do backend
 const mockClients: Client[] = []; 
-
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
