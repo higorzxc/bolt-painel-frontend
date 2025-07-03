@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, Bot } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
+import toast from 'react-hot-toast'; // Importar toast para exibir mensagens de erro, se quiser adicionar aqui
 
 const Login: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -11,10 +12,13 @@ const Login: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    setTimeout(() => {
-      login(password);
-      setIsLoading(false);
-    }, 1000);
+    // REMOVA O setTimeout e use await diretamente
+    const success = await login(password); 
+    
+    setIsLoading(false); // Desativa o carregamento
+
+    // A lógica de sucesso/erro (toasts) já está no AppContext.tsx,
+    // então não precisamos duplicar aqui, a menos que queira algo específico.
   };
 
   return (
