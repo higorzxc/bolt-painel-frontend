@@ -14,7 +14,8 @@ type TabType = 'clients' | 'campaigns' | 'flows' | 'remarketing' | 'chatbot' | '
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('clients');
-  const { logout, isWhatsAppConnected, statistics } = useApp();
+  // Adicione 'isLoadingInitialData' aqui para verificar o estado de carregamento
+  const { logout, isWhatsAppConnected, statistics, isLoadingInitialData } = useApp();
 
   const tabs = [
     { id: 'clients' as TabType, name: 'Clientes', icon: Users },
@@ -50,6 +51,20 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  // ==============================================
+  // ADICIONADO: Lógica de Carregamento
+  // ==============================================
+  if (isLoadingInitialData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center">
+          <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p className="text-gray-700 text-lg">Carregando dados do servidor...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -66,8 +81,9 @@ const Dashboard: React.FC = () => {
                 <div className={`w-2 h-2 rounded-full mr-2 ${isWhatsAppConnected ? 'bg-green-500' : 'bg-red-500'}`} />
                 WhatsApp {isWhatsAppConnected ? 'Conectado' : 'Desconectado'}
               </div>
+              {/* ADICIONADO: Acesso seguro à 'statistics.activeConversations' */}
               <div className="text-sm text-gray-600">
-                {statistics.activeConversations} conversas ativas
+                {statistics?.activeConversations || 0} conversas ativas
               </div>
               <button
                 onClick={logout}

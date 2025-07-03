@@ -135,7 +135,8 @@ const CampaignModal: React.FC<CampaignModalProps> = ({ campaign, onClose }) => {
   ];
 
   const getTargetCount = (category: Campaign['targetCategory']) => {
-    return clients.filter(c => c.category === category).length;
+    // Adicionada verificação para 'clients'
+    return clients ? clients.filter(c => c.category === category).length : 0;
   };
 
   const addButton = (stepIndex: number) => {
@@ -339,8 +340,8 @@ const CampaignModal: React.FC<CampaignModalProps> = ({ campaign, onClose }) => {
                       <div className="mt-4">
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           Arquivo de {step.type === 'audio' ? 'Áudio' : 
-                                     step.type === 'image' ? 'Imagem' : 
-                                     step.type === 'video' ? 'Vídeo' : 'PDF'}
+                                       step.type === 'image' ? 'Imagem' : 
+                                       step.type === 'video' ? 'Vídeo' : 'PDF'}
                         </label>
                         <div className="flex items-center gap-4">
                           {step.fileName && (

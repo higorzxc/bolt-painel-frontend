@@ -155,7 +155,7 @@ const RemarketingFlowModal: React.FC<RemarketingFlowModalProps> = ({ flow, onClo
     { value: 'completed_purchases', label: 'Compras Completas' }
   ];
 
-  const selectedCampaign = campaigns.find(c => c.id === formData.campaignId);
+  const selectedCampaign = campaigns ? campaigns.find(c => c.id === formData.campaignId) : undefined;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
